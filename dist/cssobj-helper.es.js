@@ -1,15 +1,5 @@
 // helper functions for cssobj
 
-// type check helpers
-var type = {}.toString
-var ARRAY = type.call([])
-var OBJECT = type.call({})
-
-// only array, object now treated as iterable
-function isIterable (v) {
-  return type.call(v) == OBJECT || type.call(v) == ARRAY
-}
-
 // convert js prop into css prop (dashified)
 function dashify(str) {
   return str.replace(/[A-Z]/g, function(m) {
@@ -80,4 +70,4 @@ function isValidCSSValue (val) {
   return val || val === 0
 }
 
-export { type, ARRAY, OBJECT, isIterable, dashify, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
+export { dashify, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };

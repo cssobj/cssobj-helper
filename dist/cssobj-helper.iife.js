@@ -3,16 +3,6 @@
 
   // helper functions for cssobj
 
-  // type check helpers
-  var type = {}.toString
-  var ARRAY = type.call([])
-  var OBJECT = type.call({})
-
-  // only array, object now treated as iterable
-  function isIterable (v) {
-    return type.call(v) == OBJECT || type.call(v) == ARRAY
-  }
-
   // convert js prop into css prop (dashified)
   function dashify(str) {
     return str.replace(/[A-Z]/g, function(m) {
@@ -83,10 +73,6 @@
     return val || val === 0
   }
 
-  exports.type = type;
-  exports.ARRAY = ARRAY;
-  exports.OBJECT = OBJECT;
-  exports.isIterable = isIterable;
   exports.dashify = dashify;
   exports.trim = trim;
   exports.random = random;
