@@ -4,6 +4,15 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 // helper functions for cssobj
 
+// set default option (not deeply)
+function defaults(options, defaultOption) {
+  options = options || {}
+  for (var i in defaultOption) {
+    if (!(i in options)) options[i] = defaultOption[i]
+  }
+  return options
+}
+
 // convert js prop into css prop (dashified)
 function dashify(str) {
   return str.replace(/[A-Z]/g, function(m) {
@@ -74,6 +83,7 @@ function isValidCSSValue (val) {
   return val || val === 0
 }
 
+exports.defaults = defaults;
 exports.dashify = dashify;
 exports.trim = trim;
 exports.random = random;
