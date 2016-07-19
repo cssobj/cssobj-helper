@@ -42,8 +42,9 @@ function extendObj (obj, key, source) {
 }
 
 // ensure obj[k] as array, then push v into it
-function arrayKV (obj, k, v, reverse) {
+function arrayKV (obj, k, v, reverse, unique) {
   obj[k] = obj[k] || []
+  if(unique && obj[k].indexOf(v)>-1) return
   reverse ? obj[k].unshift(v) : obj[k].push(v)
 }
 
@@ -58,13 +59,18 @@ function strSugar (str, find, rep) {
 }
 
 // get parents array from node (when it's passed the test)
-function getParents (node, test, key, onlyOne) {
+function getParents (node, test, key, childrenKey) {
   var p = node, path = []
   while(p) {
-    if (test(p)) path.unshift(key ? p[key] : p)
+    if (test(p)) {
+      if(childrenKey) path.forEach(function(v) {
+        arrayKV(p, childrenKey, v, false, true)
+      })
+      path.unshift(p)
+    }
     p = p.parent
   }
-  return path
+  return path.map(function(p){return key?p[key]:p })
 }
 
 
