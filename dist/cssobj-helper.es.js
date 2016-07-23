@@ -55,13 +55,16 @@ function strSugar (str, find, rep) {
 }
 
 // get parents array from node (when it's passed the test)
-function getParents (node, test, key, childrenKey) {
+function getParents (node, test, key, childrenKey, parentKey) {
   var p = node, path = []
   while(p) {
     if (test(p)) {
       if(childrenKey) path.forEach(function(v) {
         arrayKV(p, childrenKey, v, false, true)
       })
+      if(path[0] && parentKey){
+        path[0][parentKey] = p
+      }
       path.unshift(p)
     }
     p = p.parent
