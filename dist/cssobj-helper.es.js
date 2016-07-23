@@ -16,6 +16,11 @@ function dashify(str) {
   })
 }
 
+// repeat str for num times
+function repeat(str, num) {
+  return new Array(num+1).join(str)
+}
+
 // don't use String.prototype.trim in cssobj, using below instead
 function trim(str) {
   return str.replace(/(^\s+|\s+$)/g, '')
@@ -88,4 +93,4 @@ function isValidCSSValue (val) {
   return val || val === 0
 }
 
-export { defaults, dashify, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
+export { defaults, dashify, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };

@@ -18,6 +18,11 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
     })
   }
 
+  // repeat str for num times
+  function repeat(str, num) {
+    return new Array(num+1).join(str)
+  }
+
   // don't use String.prototype.trim in cssobj, using below instead
   function trim(str) {
     return str.replace(/(^\s+|\s+$)/g, '')
@@ -92,6 +97,7 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
 
   exports.defaults = defaults;
   exports.dashify = dashify;
+  exports.repeat = repeat;
   exports.trim = trim;
   exports.random = random;
   exports.extendObj = extendObj;
