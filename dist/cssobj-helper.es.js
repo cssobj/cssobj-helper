@@ -16,6 +16,11 @@ function dashify(str) {
   })
 }
 
+// capitalize str
+function capitalize (str) {
+  return str.charAt(0).toUpperCase() + str.substr(1)
+}
+
 // repeat str for num times
 function repeat(str, num) {
   return new Array(num+1).join(str)
@@ -93,4 +98,4 @@ function isValidCSSValue (val) {
   return val || val === 0
 }
 
-export { defaults, dashify, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
+export { defaults, dashify, capitalize, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };

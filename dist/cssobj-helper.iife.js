@@ -19,6 +19,11 @@
     })
   }
 
+  // capitalize str
+  function capitalize (str) {
+    return str.charAt(0).toUpperCase() + str.substr(1)
+  }
+
   // repeat str for num times
   function repeat(str, num) {
     return new Array(num+1).join(str)
@@ -98,6 +103,7 @@
 
   exports.defaults = defaults;
   exports.dashify = dashify;
+  exports.capitalize = capitalize;
   exports.repeat = repeat;
   exports.trim = trim;
   exports.random = random;
