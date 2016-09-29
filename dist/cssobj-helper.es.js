@@ -1,5 +1,14 @@
 // helper functions for cssobj
 
+// check n is numeric, or string of numeric
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n)
+}
+
+function own(o, k) {
+  return {}.hasOwnProperty.call(o, k)
+}
+
 // set default option (not deeply)
 function defaults(options, defaultOption) {
   options = options || {}
@@ -82,7 +91,6 @@ function getParents (node, test, key, childrenKey, parentKey) {
   return path.map(function(p){return key?p[key]:p })
 }
 
-
 // split selector etc. aware of css attributes
 function splitComma (str) {
   for (var c, i = 0, n = 0, prev = 0, d = []; c = str.charAt(i); i++) {
@@ -95,7 +103,8 @@ function splitComma (str) {
 
 // checking for valid css value
 function isValidCSSValue (val) {
-  return val || val === 0
+  // falsy: '', NaN, Infinity, [], {}
+  return typeof val=='string' && val || typeof val=='number' && isFinite(val)
 }
 
-export { defaults, dashify, capitalize, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
+export { isNumeric, own, defaults, dashify, capitalize, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };

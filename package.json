@@ -1,13 +1,13 @@
 {
   "name": "cssobj-helper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/cssobj-helper.cjs.js",
   "jsnext:main": "dist/cssobj-helper.es.js",
   "scripts": {
     "test": "mocha",
     "report": "cd dist && gzip < cssobj-helper.min.js > cssobj-helper.min.gz && ls -lh && rm -f *.gz",
-    "make": "rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js"
+    "make": "rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js && gulp bump"
   },
   "repository": {
     "type": "git",

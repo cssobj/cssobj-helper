@@ -2,6 +2,15 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
 
   // helper functions for cssobj
 
+  // check n is numeric, or string of numeric
+  function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n)
+  }
+
+  function own(o, k) {
+    return {}.hasOwnProperty.call(o, k)
+  }
+
   // set default option (not deeply)
   function defaults(options, defaultOption) {
     options = options || {}
@@ -84,7 +93,6 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
     return path.map(function(p){return key?p[key]:p })
   }
 
-
   // split selector etc. aware of css attributes
   function splitComma (str) {
     for (var c, i = 0, n = 0, prev = 0, d = []; c = str.charAt(i); i++) {
@@ -97,9 +105,12 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
 
   // checking for valid css value
   function isValidCSSValue (val) {
-    return val || val === 0
+    // falsy: '', NaN, Infinity, [], {}
+    return typeof val=='string' && val || typeof val=='number' && isFinite(val)
   }
 
+  exports.isNumeric = isNumeric;
+  exports.own = own;
   exports.defaults = defaults;
   exports.dashify = dashify;
   exports.capitalize = capitalize;
