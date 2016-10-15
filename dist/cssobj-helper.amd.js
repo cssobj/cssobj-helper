@@ -15,7 +15,7 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
   function defaults(options, defaultOption) {
     options = options || {}
     for (var i in defaultOption) {
-      if (!(i in options)) options[i] = defaultOption[i]
+      if (own(defaultOption, i) && !(i in options)) options[i] = defaultOption[i]
     }
     return options
   }
@@ -54,7 +54,8 @@ define('cssobj_helper', ['exports'], function (exports) { 'use strict';
   // extend obj from source, if it's no key in obj, create one
   function extendObj (obj, key, source) {
     obj[key] = obj[key] || {}
-    for (var k in source) obj[key][k] = source[k]
+    for (var k in source)
+      if (own(source, k)) obj[key][k] = source[k]
     return obj[key]
   }
 
