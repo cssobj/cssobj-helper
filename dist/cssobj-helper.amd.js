@@ -37,11 +37,6 @@ function repeat(str, num) {
   return new Array(num+1).join(str)
 }
 
-// don't use String.prototype.trim in cssobj, using below instead
-function trim(str) {
-  return str.replace(/(^\s+|\s+$)/g, '')
-}
-
 // random string, should used across all cssobj plugins
 var random = (function () {
   var count = 0;
@@ -119,7 +114,6 @@ exports.defaults = defaults;
 exports.dashify = dashify;
 exports.capitalize = capitalize;
 exports.repeat = repeat;
-exports.trim = trim;
 exports.random = random;
 exports.extendObj = extendObj;
 exports.arrayKV = arrayKV;

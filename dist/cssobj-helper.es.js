@@ -35,11 +35,6 @@ function repeat(str, num) {
   return new Array(num+1).join(str)
 }
 
-// don't use String.prototype.trim in cssobj, using below instead
-function trim(str) {
-  return str.replace(/(^\s+|\s+$)/g, '')
-}
-
 // random string, should used across all cssobj plugins
 var random = (function () {
   var count = 0;
@@ -111,4 +106,4 @@ function isValidCSSValue (val) {
   return typeof val=='string' && val || typeof val=='number' && isFinite(val)
 }
 
-export { isNumeric, own, defaults, dashify, capitalize, repeat, trim, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
+export { isNumeric, own, defaults, dashify, capitalize, repeat, random, extendObj, arrayKV, strSugar, getParents, splitComma, isValidCSSValue };
