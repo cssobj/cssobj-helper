@@ -15,9 +15,9 @@ function own(o, k) {
 
 // set default option (not deeply)
 function defaults(options, defaultOption) {
-  options = options || {}
+  options = options || {};
   for (var i in defaultOption) {
-    if (own(defaultOption, i) && !(i in options)) options[i] = defaultOption[i]
+    if (own(defaultOption, i) && !(i in options)) options[i] = defaultOption[i];
   }
   return options
 }
@@ -46,26 +46,29 @@ function trim(str) {
 
 // random string, should used across all cssobj plugins
 var random = (function () {
-  var count = 0
-  return function () {
-    count++
-    return '_' + Math.floor(Math.random() * Math.pow(2, 32)).toString(36) + count + '_'
+  var count = 0;
+  return function (prefix) {
+    count++;
+    return '_' + (prefix||'') + Math.floor(Math.random() * Math.pow(2, 32)).toString(36) + count + '_'
   }
-})()
+})();
 
 // extend obj from source, if it's no key in obj, create one
 function extendObj (obj, key, source) {
-  obj[key] = obj[key] || {}
-  for (var k in source)
-    if (own(source, k)) obj[key][k] = source[k]
+  obj[key] = obj[key] || {};
+  for(var args = arguments, i = 2; i < args.length; i++) {
+    source = args[i];
+    for (var k in source)
+      if (own(source, k)) obj[key][k] = source[k];
+  }
   return obj[key]
 }
 
 // ensure obj[k] as array, then push v into it
 function arrayKV (obj, k, v, reverse, unique) {
-  obj[k] = k in obj ? [].concat(obj[k]) : []
+  obj[k] = k in obj ? [].concat(obj[k]) : [];
   if(unique && obj[k].indexOf(v)>-1) return
-  reverse ? obj[k].unshift(v) : obj[k].push(v)
+  reverse ? obj[k].unshift(v) : obj[k].push(v);
 }
 
 // replace find in str, with rep function result
@@ -80,18 +83,18 @@ function strSugar (str, find, rep) {
 
 // get parents array from node (when it's passed the test)
 function getParents (node, test, key, childrenKey, parentKey) {
-  var p = node, path = []
+  var p = node, path = [];
   while(p) {
     if (test(p)) {
       if(childrenKey) path.forEach(function(v) {
-        arrayKV(p, childrenKey, v, false, true)
-      })
+        arrayKV(p, childrenKey, v, false, true);
+      });
       if(path[0] && parentKey){
-        path[0][parentKey] = p
+        path[0][parentKey] = p;
       }
-      path.unshift(p)
+      path.unshift(p);
     }
-    p = p.parent
+    p = p.parent;
   }
   return path.map(function(p){return key?p[key]:p })
 }
@@ -99,9 +102,9 @@ function getParents (node, test, key, childrenKey, parentKey) {
 // split selector etc. aware of css attributes
 function splitComma (str) {
   for (var c, i = 0, n = 0, prev = 0, d = []; c = str.charAt(i); i++) {
-    if (c == '(' || c == '[') n++
-    if (c == ')' || c == ']') n--
-    if (!n && c == ',') d.push(str.substring(prev, i)), prev = i + 1
+    if (c == '(' || c == '[') n++;
+    if (c == ')' || c == ']') n--;
+    if (!n && c == ',') d.push(str.substring(prev, i)), prev = i + 1;
   }
   return d.concat(str.substring(prev))
 }
