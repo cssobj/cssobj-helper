@@ -15,6 +15,7 @@ describe('syntaxSplit', () => {
     expect(lib.syntaxSplit(
       'as&fdf,&&df[d&s"oi&sd,jf"f,i[&df,fij]jo]&, oij&',
       ',',
+      false,
       c => '&'.indexOf(c) > -1,
       f => '----'
     )).deep.equal(
@@ -27,6 +28,7 @@ describe('syntaxSplit', () => {
     expect(lib.syntaxSplit(
       'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e&#f#&,sdf(&)',
       ',',
+      false,
       c => '&#'.indexOf(c) > -1,
       f => f+'----'
     )).deep.equal(
