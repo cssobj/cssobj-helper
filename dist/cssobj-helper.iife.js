@@ -105,8 +105,9 @@ function splitComma (str) {
 
 // split char aware of syntax
 function syntaxSplit (str, splitter, keepSplitter, test, final) {
-  var isString, isFeature, isSplitter, feature = [], segment = [], result = [], ast = [], len = str.length;
-  for (var c, i = 0, lastAst, prev = 0; i <= len; i++) {
+  var isString, isFeature, isSplitter, lastAst,
+      feature = [], segment = [], result = [], ast = [], len = str.length;
+  for (var c, i = 0; i <= len; i++) {
     c = str.charAt(i);
     lastAst = ast[0];
     isString = lastAst == '\'' || lastAst == '"';

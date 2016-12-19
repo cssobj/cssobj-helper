@@ -5,11 +5,11 @@
   "main": "dist/cssobj-helper.cjs.js",
   "jsnext:main": "dist/cssobj-helper.es.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js",
     "pretest": "npm run build",
     "test": "mocha",
     "report": "cd dist && gzip < cssobj-helper.min.js > cssobj-helper.min.gz && ls -lh && rm -f *.gz",
-    "make": "gulp bump && rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js"
+    "make": "gulp bump && npm run build"
   },
   "repository": {
     "type": "git",
