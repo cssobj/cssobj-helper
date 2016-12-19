@@ -25,12 +25,12 @@ describe('syntaxSplit', () => {
   })
   it('should work with test & replace 2', () => {
     expect(lib.syntaxSplit(
-      'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e&f&,sdf(&)',
+      'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e&#f#&,sdf(&)',
       ',',
-      c => '&'.indexOf(c) > -1,
-      f => '----'
+      c => '&#'.indexOf(c) > -1,
+      f => f+'----'
     )).deep.equal(
-      [ 'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e----f----',
+      [ 'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e&#----f#&----',
         'sdf(&)' ]
     )
   })

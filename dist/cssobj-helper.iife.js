@@ -123,7 +123,7 @@ function syntaxSplit (str, splitter, test, final) {
       isSplitter = c == splitter || !c;
       if (isSplitter) c = '';
       if (isFeature) feature.push(c);
-      if (!isFeature || isSplitter) segment.push(feature.length ? final(feature) : '', c), feature = [];
+      if (!isFeature || isSplitter) segment.push(feature.length ? final(feature.join('')) : '', c), feature = [];
       if (isSplitter) result.push(segment.join('')), segment = [];
     }
   }
