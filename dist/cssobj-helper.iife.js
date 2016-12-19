@@ -103,6 +103,33 @@ function splitComma (str) {
   return d.concat(str.substring(prev))
 }
 
+// split char aware of syntax
+
+const selectorSyntaxPair = {
+  '[': ']',
+  '(': ')',
+  // '"': '"'
+};
+
+function syntaxSplit (str, splitter, test, final) {
+  var isFeature, isSplitter, feature = [], segment = [], result = [], len=str.length;
+  for (var c, i = 0, ast = 0, prev = 0; c = str.charAt(i) || i==len; i++) {
+    if (!ast && c in selectorSyntaxPair) ast = c;
+    else if (ast && c == selectorSyntaxPair[ast]) ast = 0;
+    if (ast) {
+      segment.push(c);
+    } else {
+      isFeature = test && test(c);
+      isSplitter = c == splitter || i==len;
+      if (isSplitter) c = '';
+      if (isFeature) feature.push(c);
+      else segment.push(feature.length ? final(feature) : '', c), feature = [];
+      if (isSplitter) result.push(segment.join('')), segment = [];
+    }
+  }
+  return result
+}
+
 // checking for valid css value
 function isValidCSSValue (val) {
   // falsy: '', NaN, Infinity, [], {}
@@ -121,6 +148,7 @@ exports.arrayKV = arrayKV;
 exports.strSugar = strSugar;
 exports.getParents = getParents;
 exports.splitComma = splitComma;
+exports.syntaxSplit = syntaxSplit;
 exports.isValidCSSValue = isValidCSSValue;
 
 }((this.cssobj_helper = this.cssobj_helper || {})));
