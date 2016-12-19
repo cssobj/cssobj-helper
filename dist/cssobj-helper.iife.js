@@ -104,26 +104,26 @@ function splitComma (str) {
 }
 
 // split char aware of syntax
-
-const selectorSyntaxPair = {
-  '[': ']',
-  '(': ')',
-  // '"': '"'
-};
-
 function syntaxSplit (str, splitter, test, final) {
-  var isFeature, isSplitter, feature = [], segment = [], result = [], len=str.length;
-  for (var c, i = 0, ast = 0, prev = 0; c = str.charAt(i) || i==len; i++) {
-    if (!ast && c in selectorSyntaxPair) ast = c;
-    else if (ast && c == selectorSyntaxPair[ast]) ast = 0;
-    if (ast) {
+  var isString, isFeature, isSplitter, feature = [], segment = [], result = [], ast=[], len=str.length;
+  for (var c, i = 0, lastAst, prev = 0; i<=len; i++) {
+    c = str.charAt(i);
+    lastAst = ast[0];
+    isString = lastAst=='\'' || lastAst=='"';
+    if(!isString) {
+      if('[(\'"'.indexOf(c) >= 0) ast.unshift(c);
+      if('])'.indexOf(c) >= 0) ast.shift();
+    } else {
+      if(c==lastAst) ast.shift();
+    }
+    if (lastAst) {
       segment.push(c);
     } else {
-      isFeature = test && test(c);
-      isSplitter = c == splitter || i==len;
+      isFeature = test && c && test(c);
+      isSplitter = c == splitter || !c;
       if (isSplitter) c = '';
       if (isFeature) feature.push(c);
-      else segment.push(feature.length ? final(feature) : '', c), feature = [];
+      if (!isFeature || isSplitter) segment.push(feature.length ? final(feature) : '', c), feature = [];
       if (isSplitter) result.push(segment.join('')), segment = [];
     }
   }

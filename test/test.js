@@ -9,6 +9,29 @@ describe('syntaxSplit', () => {
     expect(lib.syntaxSplit('abc,def, cc  ,, sdf', ',')).deep.equal([ 'abc', 'def', ' cc  ', '', ' sdf' ])
   })
   it('should work with syntax pair string', () => {
-    expect(lib.syntaxSplit('abc,d[,di()fj&[ijf,fji],fij,]ef, cc [(dif),(sd,if)] ,, sdf', ',')).deep.equal([ 'abc', 'def', ' cc  ', '', ' sdf' ])
+    expect(lib.syntaxSplit('d[,di()fj&[ijf,fji],fij,]ef, cc [(dif),(sd,if)]', ',')).deep.equal([ 'd[,di()fj&[ijf,fji],fij,]ef', ' cc [(dif),(sd,if)]'])
+  })
+  it('should work with test & replace 1', () => {
+    expect(lib.syntaxSplit(
+      'as&fdf,&&df[d&s"oi&sd,jf"f,i[&df,fij]jo]&, oij&',
+      ',',
+      c => '&'.indexOf(c) > -1,
+      f => '----'
+    )).deep.equal(
+      [ 'as----fdf',
+        '----df[d&s"oi&sd,jf"f,i[&df,fij]jo]----',
+        ' oij----' ]
+    )
+  })
+  it('should work with test & replace 2', () => {
+    expect(lib.syntaxSplit(
+      'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e&f&,sdf(&)',
+      ',',
+      c => '&'.indexOf(c) > -1,
+      f => '----'
+    )).deep.equal(
+      [ 'd[,di(fd,d&f)fj"d=[i&&j(d,d)f,fji]",fij,]e----f----',
+        'sdf(&)' ]
+    )
   })
 })
