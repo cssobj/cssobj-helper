@@ -74,20 +74,26 @@ function strSugar (str, find, rep) {
 
 // get parents array from node (when it's passed the test)
 function getParents (node, test, key, childrenKey, parentKey) {
-  var p = node, path = [];
-  while(p) {
+  var i, len, p = node, path = [];
+  while (p) {
     if (test(p)) {
-      if(childrenKey) path.forEach(function(v) {
-        arrayKV(p, childrenKey, v, false, true);
-      });
-      if(path[0] && parentKey){
+      if (childrenKey) {
+        for (i = 0, len = path.length; i < len; i++) {
+          arrayKV(p, childrenKey, path[i], false, true);
+        }
+      }
+      if (path[0] && parentKey) {
         path[0][parentKey] = p;
       }
       path.unshift(p);
     }
     p = p.parent;
   }
-  return path.map(function(p){return key?p[key]:p })
+  for (i = 0, len = path.length; i < len; i++) {
+    path[i] = key ? path[i][key] : path[i];
+  }
+
+  return path
 }
 
 // split selector with comma, aware of css attributes
