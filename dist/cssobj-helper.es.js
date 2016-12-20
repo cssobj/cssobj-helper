@@ -91,13 +91,18 @@ function getParents (node, test, key, childrenKey, parentKey) {
 }
 
 // split selector etc. aware of css attributes
-function splitComma (str) {
-  for (var c, i = 0, n = 0, prev = 0, d = []; c = str.charAt(i); i++) {
+function splitSelector (sel, splitter) {
+  for (var c, i = 0, n = 0, instr = '', prev = 0, d = []; c = sel.charAt(i); i++) {
+    if (instr) {
+      if (c == instr) instr = '';
+      continue
+    }
+    if (c == '"' || c == '\'') instr = c;
     if (c == '(' || c == '[') n++;
     if (c == ')' || c == ']') n--;
-    if (!n && c == ',') d.push(str.substring(prev, i)), prev = i + 1;
+    if (!n && c == splitter) d.push(sel.substring(prev, i)), prev = i + 1;
   }
-  return d.concat(str.substring(prev))
+  return d.concat(sel.substring(prev))
 }
 
 // split char aware of syntax
@@ -134,4 +139,4 @@ function isValidCSSValue (val) {
   return typeof val=='string' && val || typeof val=='number' && isFinite(val)
 }
 
-export { isNumeric, own, defaults, dashify, capitalize, repeat, random, extendObj, arrayKV, strSugar, getParents, splitComma, syntaxSplit, isValidCSSValue };
+export { isNumeric, own, defaults, dashify, capitalize, repeat, random, extendObj, arrayKV, strSugar, getParents, splitSelector, syntaxSplit, isValidCSSValue };
