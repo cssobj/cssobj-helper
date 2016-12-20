@@ -92,7 +92,17 @@ function getParents (node, test, key, childrenKey, parentKey) {
   return path.map(function(p){return key?p[key]:p })
 }
 
-// split selector etc. aware of css attributes
+// split selector with comma, aware of css attributes
+function splitComma (str) {
+  for (var c, i = 0, n = 0, prev = 0, d = []; c = str.charAt(i); i++) {
+    if (c == '(' || c == '[') n++;
+    if (c == ')' || c == ']') n--;
+    if (!n && c == ',') d.push(str.substring(prev, i)), prev = i + 1;
+  }
+  return d.concat(str.substring(prev))
+}
+
+// split selector with splitter, aware of css attributes
 function splitSelector (sel, splitter) {
   for (var c, i = 0, n = 0, instr = '', prev = 0, d = []; c = sel.charAt(i); i++) {
     if (instr) {
@@ -152,6 +162,7 @@ exports.extendObj = extendObj;
 exports.arrayKV = arrayKV;
 exports.strSugar = strSugar;
 exports.getParents = getParents;
+exports.splitComma = splitComma;
 exports.splitSelector = splitSelector;
 exports.syntaxSplit = syntaxSplit;
 exports.isValidCSSValue = isValidCSSValue;
