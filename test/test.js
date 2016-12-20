@@ -5,6 +5,9 @@ describe('splitSelector', () => {
   it('should work with empty str', () => {
     expect(lib.splitSelector('')).deep.equal([''])
   })
+  it('should work with basic str', () => {
+    expect(lib.splitSelector('body')).deep.equal(['body'])
+  })
   it('should work with basic string', () => {
     expect(lib.splitSelector('abc,def, cc  ,, sdf', ','))
       .deep.equal([ 'abc', 'def', ' cc  ', '', ' sdf' ])
