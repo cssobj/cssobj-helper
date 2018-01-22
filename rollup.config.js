@@ -3,7 +3,7 @@
 export default {
   entry: 'lib/cssobj-helper.js',
   moduleName: 'cssobj_helper',
-  moduleId: 'cssobj_helper',
+  // amd: {id: 'cssobj_helper'},
   targets: [
     { format: 'iife', dest: 'dist/cssobj-helper.iife.js' },
     { format: 'amd',  dest: 'dist/cssobj-helper.amd.js'  },

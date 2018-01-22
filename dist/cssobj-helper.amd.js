@@ -1,4 +1,4 @@
-define('cssobj_helper', ['exports'], function (exports) { 'use strict';
+define(['exports'], function (exports) { 'use strict';
 
 // helper functions for cssobj
 
@@ -59,7 +59,7 @@ function extendObj (obj, key, source) {
 
 // ensure obj[k] as array, then push v into it
 function arrayKV (obj, k, v, reverse, unique) {
-  obj[k] = k in obj ? [].concat(obj[k]) : [];
+  obj[k] = k in obj ? (Array.isArray(obj[k]) ? obj[k] : [obj[k]]) : [];
   if(unique && obj[k].indexOf(v)>-1) return
   reverse ? obj[k].unshift(v) : obj[k].push(v);
 }
