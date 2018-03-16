@@ -24,9 +24,9 @@ function defaults(options, defaultOption) {
 
 // Object.assgin polyfill
 function _assign (target, source) {
-  var from, key;
+  var s, from, key;
   var to = Object(target);
-  for (var s = 1; s < arguments.length; s++) {
+  for (s = 1; s < arguments.length; s++) {
     from = Object(arguments[s]);
     for (key in from) {
       if (own(from, key)) {
