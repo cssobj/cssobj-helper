@@ -1,6 +1,6 @@
 {
   "name": "cssobj-helper",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "",
   "main": "dist/cssobj-helper.cjs.js",
   "jsnext:main": "dist/cssobj-helper.es.js",
@@ -21,5 +21,8 @@
   "homepage": "https://github.com/cssobj/cssobj-helper#readme",
   "author": "James Yang <jamesyang999@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "esm": "^3.0.5"
+  }
 }
