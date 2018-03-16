@@ -9,6 +9,10 @@ function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
+function isPrimitive(val) {
+  return val == null || (typeof val !== 'function' && typeof val !== 'object')
+}
+
 function own(o, k) {
   return {}.hasOwnProperty.call(o, k)
 }
@@ -47,6 +51,40 @@ var random = (function () {
     return '_' + (prefix||'') + Math.floor(Math.random() * Math.pow(2, 32)).toString(36) + count + '_'
   }
 })();
+
+function isString(value) {
+  return typeof value === 'string'
+}
+function isEmpty(value) {
+  if (Array.isArray(value)) {
+    return value.length === 0
+  } else if (typeof value === 'object') {
+    if (value) {
+      for (var _ in value) return false
+    }
+    return true
+  } else {
+    return !value
+  }
+}
+// console.log(isEmpty([]), isEmpty(), isEmpty(null), isEmpty(''), isEmpty({}), isEmpty(23))
+
+// set object path value, any Primitive/Non-exists will be set to {}
+function objSet(obj, _key, value) {
+  var key = Array.isArray(_key) ? _key : String(_key).split('.');
+  var p, n;
+  for(p=0; p<key.length-1; p++) {
+    n = key[p];
+    if(!obj.hasOwnProperty(n) || isPrimitive(obj[n])) obj[n] = {};
+    obj = obj[n];
+  }
+  return obj[key[p]] = value
+}
+// var obj={a:{b:{c:1}}};
+// objSet(obj, {} ,{x:1});
+// objSet(obj,'a.b.c.d.e',{x:1});
+// objSet(obj,'a.f.d.s'.split('.'), {y:1});
+// console.log(JSON.stringify(obj))
 
 // extend obj from source, if it's no key in obj, create one
 function extendObj (obj, key, source) {
@@ -162,12 +200,16 @@ function isValidCSSValue (val) {
 }
 
 exports.isNumeric = isNumeric;
+exports.isPrimitive = isPrimitive;
 exports.own = own;
 exports.defaults = defaults;
 exports.dashify = dashify;
 exports.capitalize = capitalize;
 exports.repeat = repeat;
 exports.random = random;
+exports.isString = isString;
+exports.isEmpty = isEmpty;
+exports.objSet = objSet;
 exports.extendObj = extendObj;
 exports.arrayKV = arrayKV;
 exports.strSugar = strSugar;
