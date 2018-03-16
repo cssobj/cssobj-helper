@@ -103,6 +103,7 @@ function objGetObj(obj, _key) {
 }
 // var obj={a:{b:{c:1}}};
 // console.log(objGetObj(obj))
+// console.log(objGetObj(obj, []))
 // console.log(objGetObj(obj, 'a'))
 // console.log(objGetObj(obj, 'a.b'))
 // console.log(objGetObj(obj, 'a.b.c.e'))
