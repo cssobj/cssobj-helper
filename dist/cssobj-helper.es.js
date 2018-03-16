@@ -22,6 +22,23 @@ function defaults(options, defaultOption) {
   return options
 }
 
+// Object.assgin polyfill
+function _assign (target, source) {
+  var from, key;
+  var to = Object(target);
+  for (var s = 1; s < arguments.length; s++) {
+    from = Object(arguments[s]);
+    for (key in from) {
+      if (own(from, key)) {
+        to[key] = from[key];
+      }
+    }
+  }
+  return to
+}
+const assign = Object.assign || _assign;
+// console.log(assign({}, {a:1}, {a:2}, {b:3}))
+
 // convert js prop into css prop (dashified)
 function dashify(str) {
   return str.replace(/[A-Z]/g, function(m) {
@@ -221,4 +238,4 @@ function isValidCSSValue (val) {
   return typeof val=='string' && val || typeof val=='number' && isFinite(val)
 }
 
-export { isNumeric, isPrimitive, own, defaults, dashify, capitalize, repeat, random, isString, isEmpty, objSet, objGetObj, extendObj, arrayKV, strSugar, getParents, splitComma, splitSelector, syntaxSplit, isValidCSSValue };
+export { isNumeric, isPrimitive, own, defaults, _assign, assign, dashify, capitalize, repeat, random, isString, isEmpty, objSet, objGetObj, extendObj, arrayKV, strSugar, getParents, splitComma, splitSelector, syntaxSplit, isValidCSSValue };
