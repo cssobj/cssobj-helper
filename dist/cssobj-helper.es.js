@@ -36,7 +36,7 @@ function _assign (target, source) {
   }
   return to
 }
-const assign = Object.assign || _assign;
+var assign = Object.assign || _assign;
 // console.log(assign({}, {a:1}, {a:2}, {b:3}))
 
 // convert js prop into css prop (dashified)
