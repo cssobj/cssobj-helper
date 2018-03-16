@@ -85,6 +85,31 @@ function objSet(obj, _key, value) {
 // objSet(obj,'a.f.d.s'.split('.'), {y:1});
 // console.log(JSON.stringify(obj))
 
+
+// return object path with only object type
+function objGetObj(obj, _key) {
+  var key = Array.isArray(_key) ? _key : String(_key).split('.');
+  var p, n, ok=1;
+  var ret = {ok:ok, path:key, obj:obj};
+  for(p=0; p<key.length; p++) {
+    n = key[p];
+    if(!obj.hasOwnProperty(n) || isPrimitive(obj[n])) {
+      ok = 0;
+      break
+    }
+    obj = obj[n];
+  }
+  ret.ok= ok;
+  ret.path = key.slice(0,p);
+  ret.obj=obj;
+  return ret
+}
+// var obj={a:{b:{c:1}}};
+// console.log(objGetObj(obj))
+// console.log(objGetObj(obj, 'a'))
+// console.log(objGetObj(obj, 'a.b'))
+// console.log(objGetObj(obj, 'a.b.c.e'))
+
 // extend obj from source, if it's no key in obj, create one
 function extendObj (obj, key, source) {
   obj[key] = obj[key] || {};
@@ -209,6 +234,7 @@ exports.random = random;
 exports.isString = isString;
 exports.isEmpty = isEmpty;
 exports.objSet = objSet;
+exports.objGetObj = objGetObj;
 exports.extendObj = extendObj;
 exports.arrayKV = arrayKV;
 exports.strSugar = strSugar;
