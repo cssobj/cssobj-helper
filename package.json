@@ -1,6 +1,6 @@
 {
   "name": "cssobj-helper",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "",
   "main": "dist/cssobj-helper.cjs.js",
   "jsnext:main": "dist/cssobj-helper.es.js",

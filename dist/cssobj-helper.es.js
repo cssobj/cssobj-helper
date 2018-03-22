@@ -138,10 +138,17 @@ function extendObj (obj, key, source) {
 
 // ensure obj[k] as array, then push v into it
 function arrayKV (obj, k, v, reverse, unique) {
-  obj[k] = k in obj ? (Array.isArray(obj[k]) ? obj[k] : [obj[k]]) : [];
-  if(unique && obj[k].indexOf(v)>-1) return
-  reverse ? obj[k].unshift(v) : obj[k].push(v);
+  var d = obj[k];
+  d = obj[k] = k in obj ? (Array.isArray(d) ? d : [d]) : [];
+  if(unique && d.indexOf(v)>-1) return
+  reverse ? d.unshift(v) : d.push(v);
 }
+// var d={}; arrayKV(d,'a',1)
+// console.log(d)
+// var d={a:2}; arrayKV(d,'a',1)
+// console.log(d)
+// var d={a:[2]}; arrayKV(d,'a',1)
+// console.log(d)
 
 // replace find in str, with rep function result
 function strSugar (str, find, rep) {
@@ -189,20 +196,28 @@ function splitComma (str) {
 }
 
 // split selector with splitter, aware of css attributes
-function splitSelector (sel, splitter) {
+function splitSelector (sel, splitter, inBracket) {
   if (sel.indexOf(splitter) < 0) return [sel]
   for (var c, i = 0, n = 0, instr = '', prev = 0, d = []; c = sel.charAt(i); i++) {
     if (instr) {
-      if (c == instr) instr = '';
+      if (c == instr && sel.charAt(i-1)!='\\') instr = '';
       continue
     }
     if (c == '"' || c == '\'') instr = c;
-    if (c == '(' || c == '[') n++;
-    if (c == ')' || c == ']') n--;
+    /* istanbul ignore if  */
+    if(!inBracket){
+      if (c == '(' || c == '[') n++;
+      if (c == ')' || c == ']') n--;
+    }
     if (!n && c == splitter) d.push(sel.substring(prev, i)), prev = i + 1;
   }
   return d.concat(sel.substring(prev))
 }
+// console.log(splitSelector(`.a:not(.b,.c),div[x="a,a'b,b"],p`, ','))
+// console.log(splitSelector(`.a:not(.b,.c),div[x="a,a\\"b,b"],p`, ','))
+// console.log(splitSelector(`.a:not(.b,.c),div[x="a,a\\"b,b"],p`, ',', true))
+// console.log(splitSelector(`#SomeDropdown >option[value='a\\'b]<p>a']`, '>'))
+// console.log(splitSelector('.item[.!xyz.abc.def]', '.', true))
 
 // split char aware of syntax
 function syntaxSplit (str, splitter, keepSplitter, test, final) {
