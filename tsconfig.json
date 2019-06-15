@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2015", "es2016", "es2017", "es2018"],
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "sourceMap": false,
+    "strict": false,
+    "module": "es2015",
+    "target": "es2015",
+    "declaration": true,
+    "newLine": "lf",
+    "outDir": "lib"
+  },
+  "include": ["lib/*.ts"],
+  "exclude": ["dist"]
+}

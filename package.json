@@ -4,8 +4,11 @@
   "description": "",
   "main": "dist/cssobj-helper.cjs.js",
   "jsnext:main": "dist/cssobj-helper.es.js",
+  "module": "dist/cssobj-helper.es.js",
+  "types": "lib/cssobj-helper.d.ts",
+  "typings": "lib/cssobj-helper.d.ts",
   "scripts": {
-    "build": "rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js",
+    "build": "tsc && rollup -c && uglifyjs dist/cssobj-helper.iife.js -cm -o dist/cssobj-helper.min.js",
     "pretest": "npm run build",
     "test": "mocha",
     "report": "cd dist && gzip < cssobj-helper.min.js > cssobj-helper.min.gz && ls -lh && rm -f *.gz",
@@ -23,6 +26,11 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "esm": "^3.0.5"
+    "chai": "^4.2.0",
+    "esm": "^3.0.5",
+    "mocha": "^6.1.4",
+    "rollup": "^0.68.2",
+    "typescript": "^3.5.2",
+    "uglify-js": "^3.6.0"
   }
 }

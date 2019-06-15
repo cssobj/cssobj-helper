@@ -1,0 +1,32 @@
+export declare function isNumeric(n: any): boolean;
+export declare function isPrimitive(val: any): boolean;
+export declare function own(o: any, k: any): any;
+export declare function defaults(options: any, defaultOption: any): any;
+export declare function _assign(target: any, source: any): any;
+export declare var assign: {
+    <T, U>(target: T, source: U): T & U;
+    <T, U, V>(target: T, source1: U, source2: V): T & U & V;
+    <T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
+    (target: object, ...sources: any[]): any;
+};
+export declare function dashify(str: any): any;
+export declare function capitalize(str: any): any;
+export declare function repeat(str: any, num: any): string;
+export declare var random: (prefix: any) => string;
+export declare function isString(value: any): boolean;
+export declare function isFunction(value: any): boolean;
+export declare function isEmpty(value: any): boolean;
+export declare function objSet(obj: any, _key: any, value: any): any;
+export declare function objGetObj(obj: any, _key: any): {
+    ok: number;
+    path: any[];
+    obj: any;
+};
+export declare function extendObj(obj: any, key: any, source: any): any;
+export declare function arrayKV(obj: any, k: any, v: any, reverse: any, unique: any): void;
+export declare function strSugar(str: any, find: any, rep: any): any;
+export declare function getParents(node: any, test: any, key: any, childrenKey: any, parentKey: any): any[];
+export declare function splitComma(str: any): any[];
+export declare function splitSelector(sel: any, splitter: any, inBracket: any): any[];
+export declare function syntaxSplit(str: any, splitter: any, keepSplitter: any, test: any, final: any): any[];
+export declare function isValidCSSValue(val: any): string | boolean;
